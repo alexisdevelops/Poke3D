@@ -29,11 +29,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         super.viewWillAppear(animated)
         
         // Create a session configuration
-        let configuration = ARImageTrackingConfiguration()
+        let configuration = ARWorldTrackingConfiguration()
         
         if let imageToTrak = ARReferenceImage.referenceImages(inGroupNamed: "Pokemon Cards", bundle: Bundle.main) {
-            configuration.trackingImages = imageToTrak
-            configuration.maximumNumberOfTrackedImages = 1
+            configuration.detectionImages = imageToTrak
+            configuration.maximumNumberOfTrackedImages = 2
         }
         
         
@@ -75,6 +75,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             
             if let pokeScene = SCNScene(named: "art.scnassets/eevee.scn") {
                 if let pokeNode = pokeScene.rootNode.childNodes.first {
+                    pokeNode.eulerAngles.x = .pi/2
                     planeNode.addChildNode(pokeNode)
                 }
             }
